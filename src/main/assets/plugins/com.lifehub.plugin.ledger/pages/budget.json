@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "pageId": "budget",
+  "title": "月度预算",
+  "nodes": [
+    {
+      "type": "periodNav",
+      "sourceId": "ledger_budget",
+      "anchorId": "anchor",
+      "shiftAction": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.shift"
+      },
+      "resetLabel": "回到本月"
+    },
+    {
+      "type": "metrics",
+      "sourceId": "ledger_budget"
+    },
+    {
+      "type": "text",
+      "text": "预算按月独立保存，可用上方箭头查看历史月份。结转可选“仅结余”或“双向”；填写连续月数可把金额一次应用到多个月。"
+    },
+    {
+      "type": "input",
+      "id": "amount",
+      "label": "每月预算",
+      "kind": "money",
+      "placeholder": "例如 3000"
+    },
+    {
+      "type": "input",
+      "id": "months",
+      "label": "连续月数（含本月）",
+      "placeholder": "例如 3"
+    },
+    {
+      "type": "button",
+      "label": "保存预算",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.set_budget"
+      }
+    },
+    {
+      "type": "button",
+      "label": "保存并应用到连续月份",
+      "emphasis": "secondary",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.apply_budget_forward"
+      }
+    },
+    {
+      "type": "button",
+      "label": "清除预算",
+      "emphasis": "secondary",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.clear_budget"
+      }
+    },
+    {
+      "type": "text",
+      "text": "预算设置与分类：点击“预算结转”在 关闭 / 仅结余 / 双向 之间切换；点击分类可调整该分类的月度预算。"
+    },
+    {
+      "type": "recordList",
+      "sourceId": "ledger_budget",
+      "emptyTitle": "暂无预算设置",
+      "emptyMessage": "保存月度预算后可在这里管理结转与分类预算。"
+    },
+    {
+      "type": "button",
+      "label": "新增分类预算",
+      "emphasis": "secondary",
+      "action": {
+        "type": "navigate",
+        "pageId": "budget-category"
+      }
+    }
+  ]
+}

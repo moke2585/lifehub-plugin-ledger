@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "pageId": "stats",
+  "title": "统计分析",
+  "topBarActions": [
+    {
+      "icon": "add",
+      "contentDescription": "记一笔",
+      "action": {
+        "type": "navigate",
+        "pageId": "edit"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "type": "chips",
+      "id": "period",
+      "label": "查看范围",
+      "options": [
+        {
+          "label": "日",
+          "value": "day"
+        },
+        {
+          "label": "月",
+          "value": "month"
+        },
+        {
+          "label": "年",
+          "value": "year"
+        }
+      ],
+      "defaultValue": "month",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.period"
+      }
+    },
+    {
+      "type": "periodNav",
+      "sourceId": "ledger_entries",
+      "anchorId": "anchor",
+      "shiftAction": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.shift"
+      },
+      "resetLabel": "回到今天"
+    },
+    {
+      "type": "metrics",
+      "sourceId": "ledger_entries"
+    },
+    {
+      "type": "text",
+      "text": "月度洞察"
+    },
+    {
+      "type": "metrics",
+      "sourceId": "ledger_insights"
+    },
+    {
+      "type": "barChart",
+      "sourceId": "ledger_entries",
+      "title": "支出趋势",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.drilldown"
+      }
+    },
+    {
+      "type": "donutChart",
+      "sourceId": "ledger_entries",
+      "title": "支出分类"
+    },
+    {
+      "type": "button",
+      "label": "设置月度预算",
+      "emphasis": "secondary",
+      "action": {
+        "type": "navigate",
+        "pageId": "budget"
+      }
+    }
+  ]
+}

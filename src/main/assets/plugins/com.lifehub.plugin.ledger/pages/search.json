@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "pageId": "search",
+  "title": "搜索账目",
+  "nodes": [
+    {
+      "type": "input",
+      "id": "query",
+      "label": "搜索",
+      "placeholder": "搜索分类、备注或借贷对方",
+      "autofocus": true,
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.search"
+      }
+    },
+    {
+      "type": "button",
+      "label": "搜索",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.search"
+      }
+    },
+    {
+      "type": "recordList",
+      "sourceId": "ledger_search",
+      "emptyTitle": "输入关键词",
+      "emptyMessage": "搜索分类、备注或借贷对方。",
+      "emptyActionLabel": "返回账本",
+      "emptyAction": {
+        "type": "navigate",
+        "pageId": "list"
+      }
+    }
+  ]
+}

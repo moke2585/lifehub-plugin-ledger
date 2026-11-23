@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "pageId": "loan-match",
+  "title": "关联借款",
+  "nodes": [
+    {
+      "type": "text",
+      "text": "选择这笔还款对应的借款；关联后会在借还台账中自动冲减剩余金额。"
+    },
+    {
+      "type": "recordList",
+      "sourceId": "ledger_loan_options",
+      "emptyTitle": "没有可关联的借款",
+      "emptyMessage": "先在借还台账记录一笔“借钱”，再来关联这笔还款。"
+    }
+  ]
+}

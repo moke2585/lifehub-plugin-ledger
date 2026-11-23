@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "pageId": "category-pick",
+  "title": "选择分类",
+  "nodes": [
+    {
+      "type": "text",
+      "text": "点选分类会带着当前填写的内容返回记账页，并带入该分类的图标；展开后可新建类型。"
+    },
+    {
+      "type": "recordList",
+      "sourceId": "ledger_categories",
+      "carryInputs": true,
+      "collapsedCount": 6,
+      "emptyTitle": "暂无分类",
+      "emptyMessage": "返回记账页直接输入分类名称即可创建新分类。"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "pageId": "loans",
+  "title": "借还台账",
+  "topBarActions": [
+    {
+      "icon": "add",
+      "contentDescription": "记一笔借还",
+      "action": {
+        "type": "navigate",
+        "pageId": "edit",
+        "params": {
+          "category": "借钱",
+          "returnTo": "loans"
+        }
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "type": "metrics",
+      "sourceId": "ledger_loans"
+    },
+    {
+      "type": "row",
+      "children": [
+        {
+          "type": "button",
+          "label": "我借出了",
+          "emphasis": "secondary",
+          "action": {
+            "type": "navigate",
+            "pageId": "edit",
+            "params": {
+              "category": "借钱",
+              "loanKind": "lend",
+              "direction": "支出",
+              "returnTo": "loans"
+            }
+          }
+        },
+        {
+          "type": "button",
+          "label": "我借入了",
+          "emphasis": "secondary",
+          "action": {
+            "type": "navigate",
+            "pageId": "edit",
+            "params": {
+              "category": "借钱",
+              "loanKind": "borrow",
+              "direction": "收入",
+              "returnTo": "loans"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "“我借出”是对方欠我，“我借入”是我欠对方。点“记收款/记还款”可把还款对应到原借款，剩余金额自动冲减。"
+    },
+    {
+      "type": "recordList",
+      "sourceId": "ledger_loans",
+      "emptyTitle": "还没有借还记录",
+      "emptyMessage": "用上方按钮记录一笔借出或借入，还款会自动冲减余额。"
+    }
+  ]
+}

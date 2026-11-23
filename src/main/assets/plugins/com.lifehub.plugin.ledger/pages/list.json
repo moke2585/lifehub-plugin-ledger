@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "pageId": "list",
+  "title": "日常账本",
+  "topBarActions": [
+    {
+      "icon": "search",
+      "contentDescription": "搜索账目",
+      "action": {
+        "type": "navigate",
+        "pageId": "search"
+      }
+    },
+    {
+      "icon": "loans",
+      "contentDescription": "借还台账",
+      "action": {
+        "type": "navigate",
+        "pageId": "loans"
+      }
+    },
+    {
+      "icon": "chart",
+      "contentDescription": "查看统计",
+      "action": {
+        "type": "navigate",
+        "pageId": "stats"
+      }
+    },
+    {
+      "icon": "add",
+      "contentDescription": "记一笔",
+      "action": {
+        "type": "navigate",
+        "pageId": "edit"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "type": "chips",
+      "id": "period",
+      "label": "查看范围",
+      "options": [
+        {
+          "label": "日",
+          "value": "day"
+        },
+        {
+          "label": "月",
+          "value": "month"
+        },
+        {
+          "label": "年",
+          "value": "year"
+        }
+      ],
+      "defaultValue": "month",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.period"
+      }
+    },
+    {
+      "type": "periodNav",
+      "sourceId": "ledger_entries",
+      "anchorId": "anchor",
+      "shiftAction": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.shift"
+      },
+      "resetLabel": "回到今天"
+    },
+    {
+      "type": "metrics",
+      "sourceId": "ledger_entries"
+    },
+    {
+      "type": "chips",
+      "id": "direction",
+      "label": "收支方向",
+      "options": [
+        {
+          "label": "全部",
+          "value": "all"
+        },
+        {
+          "label": "支出",
+          "value": "expense"
+        },
+        {
+          "label": "收入",
+          "value": "income"
+        }
+      ],
+      "defaultValue": "all",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.filter"
+      }
+    },
+    {
+      "type": "text",
+      "text": "方向筛选会保留当前周期；点击记录编辑，左滑删除。"
+    },
+    {
+      "type": "recordList",
+      "sourceId": "ledger_entries",
+      "emptyTitle": "暂无记账记录",
+      "emptyMessage": "点击右上角 + 记一笔支出或收入。",
+      "emptyActionLabel": "记一笔",
+      "emptyAction": {
+        "type": "navigate",
+        "pageId": "edit"
+      }
+    }
+  ]
+}

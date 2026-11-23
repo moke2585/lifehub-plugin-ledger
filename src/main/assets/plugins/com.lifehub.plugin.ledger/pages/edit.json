@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "pageId": "edit",
+  "title": "记账记录",
+  "nodes": [
+    {
+      "type": "input",
+      "id": "amount",
+      "label": "金额",
+      "kind": "money",
+      "required": true,
+      "placeholder": "0.00",
+      "autofocus": true
+    },
+    {
+      "type": "chips",
+      "id": "direction",
+      "label": "收支方向",
+      "options": [
+        {
+          "label": "支出",
+          "value": "支出"
+        },
+        {
+          "label": "收入",
+          "value": "收入"
+        }
+      ],
+      "defaultValue": "支出"
+    },
+    {
+      "type": "input",
+      "id": "category",
+      "label": "分类",
+      "placeholder": "输入新分类，或从分类库选择"
+    },
+    {
+      "type": "emojiPicker",
+      "id": "categoryEmoji",
+      "label": "分类图标",
+      "collapsedCount": 10,
+      "options": [
+        "🍜",
+        "🍚",
+        "🍔",
+        "🍰",
+        "☕",
+        "🍺",
+        "🛒",
+        "🛍️",
+        "👕",
+        "💄",
+        "🚕",
+        "🚌",
+        "⛽",
+        "🚄",
+        "✈️",
+        "🏠",
+        "🛋️",
+        "💡",
+        "📱",
+        "💻",
+        "🎮",
+        "🎬",
+        "🎵",
+        "🏃",
+        "⚽",
+        "🎨",
+        "📚",
+        "🐶",
+        "🐱",
+        "🌷",
+        "💊",
+        "🏥",
+        "💇",
+        "🎁",
+        "💰",
+        "💼",
+        "📈",
+        "🧾",
+        "🔁",
+        "🤝"
+      ]
+    },
+    {
+      "type": "button",
+      "label": "从分类库选择",
+      "emphasis": "secondary",
+      "action": {
+        "type": "navigate",
+        "pageId": "category-pick"
+      }
+    },
+    {
+      "type": "text",
+      "text": "分类可自由输入；从分类库选择会同时带入它的图标，新分类保存后会记住图标。"
+    },
+    {
+      "type": "dateStrip",
+      "id": "date",
+      "days": 7,
+      "label": "日期",
+      "defaultToday": true
+    },
+    {
+      "type": "input",
+      "id": "note",
+      "label": "备注",
+      "placeholder": "可选"
+    },
+    {
+      "type": "chips",
+      "id": "loanKind",
+      "label": "借贷方向（仅“借钱”分类）",
+      "options": [
+        {
+          "label": "我借出",
+          "value": "lend"
+        },
+        {
+          "label": "我借入",
+          "value": "borrow"
+        }
+      ]
+    },
+    {
+      "type": "input",
+      "id": "counterparty",
+      "label": "借贷对方",
+      "placeholder": "例如：张三（仅“借钱”分类）"
+    },
+    {
+      "type": "text",
+      "text": "记录“借钱”需选择借贷方向并填写对方；从借还台账点“记收款/记还款”可自动关联原借款。"
+    },
+    {
+      "type": "button",
+      "label": "保存",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.save"
+      }
+    },
+    {
+      "type": "button",
+      "label": "保存并再记一笔",
+      "emphasis": "secondary",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.save",
+        "params": {
+          "mode": "continue"
+        }
+      }
+    }
+  ]
+}

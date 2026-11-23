@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "pageId": "budget-category",
+  "title": "分类预算",
+  "nodes": [
+    {
+      "type": "text",
+      "text": "为单个分类设置月度预算。保存后返回预算页；金额填 0 或点击“移除该分类预算”可清空。"
+    },
+    {
+      "type": "input",
+      "id": "category",
+      "label": "分类",
+      "placeholder": "例如 餐饮"
+    },
+    {
+      "type": "input",
+      "id": "amount",
+      "label": "每月预算",
+      "kind": "money",
+      "placeholder": "例如 500"
+    },
+    {
+      "type": "button",
+      "label": "保存分类预算",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.set_category_budget"
+      }
+    },
+    {
+      "type": "button",
+      "label": "移除该分类预算",
+      "emphasis": "secondary",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.clear_category_budget"
+      }
+    }
+  ]
+}

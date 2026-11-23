@@ -1,0 +1,118 @@
+{
+  "pluginId": "com.lifehub.plugin.ledger",
+  "name": "记账",
+  "version": "1.7.0",
+  "description": "记录收支、按日期筛选，支持月度洞察、按月预算与结转模式、预算批量应用、分类预算，图表可下钻到明细；分类按使用频率展示并支持折叠展开、自定义图标与新建类型，借入借出支持还款关联台账，数据保存在插件私有存储中。",
+  "publisher": "LifeHub",
+  "icon": "ledger",
+  "minHostVersion": 1,
+  "pluginSdkVersion": 1,
+  "capabilities": [
+    {
+      "id": "ui.action",
+      "reason": "处理新增、编辑、删除、搜索筛选与预算操作"
+    },
+    {
+      "id": "storage.private",
+      "reason": "保存记账记录"
+    }
+  ],
+  "entryPage": "list",
+  "pages": [
+    {
+      "id": "list",
+      "title": "记账",
+      "file": "pages/list.json"
+    },
+    {
+      "id": "edit",
+      "title": "记账记录",
+      "file": "pages/edit.json"
+    },
+    {
+      "id": "stats",
+      "title": "统计分析",
+      "file": "pages/stats.json"
+    },
+    {
+      "id": "budget",
+      "title": "月度预算",
+      "file": "pages/budget.json"
+    },
+    {
+      "id": "budget-category",
+      "title": "分类预算",
+      "file": "pages/budget-category.json"
+    },
+    {
+      "id": "search",
+      "title": "搜索账目",
+      "file": "pages/search.json"
+    },
+    {
+      "id": "category-pick",
+      "title": "选择分类",
+      "file": "pages/category-pick.json"
+    },
+    {
+      "id": "category-new",
+      "title": "新建类型",
+      "file": "pages/category-new.json"
+    },
+    {
+      "id": "loans",
+      "title": "借还台账",
+      "file": "pages/loans.json"
+    },
+    {
+      "id": "loan-match",
+      "title": "关联借款",
+      "file": "pages/loan-match.json"
+    }
+  ],
+  "dataSchemaVersion": 1,
+  "quickCreate": {
+    "pageId": "edit",
+    "label": "记一笔"
+  },
+  "homeWidgets": [
+    {
+      "id": "month_spend",
+      "type": "summary",
+      "title": "本月支出",
+      "size": "small",
+      "priority": 90,
+      "sourceId": "ledger_summary",
+      "params": {
+        "period": "month"
+      },
+      "action": {
+        "type": "navigate",
+        "pageId": "list",
+        "params": {
+          "period": "month"
+        }
+      },
+      "sensitive": true
+    },
+    {
+      "id": "month_budget",
+      "type": "progress",
+      "title": "本月预算",
+      "size": "small",
+      "priority": 80,
+      "sourceId": "ledger_budget",
+      "params": {
+        "period": "month"
+      },
+      "action": {
+        "type": "navigate",
+        "pageId": "budget"
+      },
+      "sensitive": true
+    }
+  ],
+  "search": {
+    "sourceId": "ledger_search"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "pageId": "category-new",
+  "title": "新建类型",
+  "nodes": [
+    {
+      "type": "input",
+      "id": "name",
+      "label": "类型名称",
+      "required": true,
+      "placeholder": "例如：宠物、健身、旅行",
+      "autofocus": true
+    },
+    {
+      "type": "emojiPicker",
+      "id": "icon",
+      "label": "类型图标",
+      "collapsedCount": 10,
+      "options": [
+        "🍜",
+        "🍚",
+        "🍔",
+        "🍰",
+        "☕",
+        "🍺",
+        "🛒",
+        "🛍️",
+        "👕",
+        "💄",
+        "🚕",
+        "🚌",
+        "⛽",
+        "🚄",
+        "✈️",
+        "🏠",
+        "🛋️",
+        "💡",
+        "📱",
+        "💻",
+        "🎮",
+        "🎬",
+        "🎵",
+        "🏃",
+        "⚽",
+        "🎨",
+        "📚",
+        "🐶",
+        "🐱",
+        "🌷",
+        "💊",
+        "🏥",
+        "💇",
+        "🎁",
+        "💰",
+        "💼",
+        "📈",
+        "🧾",
+        "🔁",
+        "🤝"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "保存后会带着当前记账草稿返回，并自动选中新类型与图标。"
+    },
+    {
+      "type": "button",
+      "label": "保存类型",
+      "action": {
+        "type": "host",
+        "actionId": "com.lifehub.plugin.ledger.create_category"
+      }
+    }
+  ]
+}
