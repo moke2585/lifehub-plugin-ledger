@@ -42,7 +42,7 @@
 
 ## 数据
 
-数据通过宿主 `PluginStorage` 保存，随宿主备份一起导出（备份 v1，口令加密）：
+内置形态通过宿主 `PluginStorage` 保存，随宿主备份一起导出（备份 v1，口令加密）：
 
 | 集合 | 内容 |
 |---|---|
@@ -50,6 +50,8 @@
 | `entries_trash` | 回收站（30 天） |
 | `budget` | 月度预算、结转模式与分类预算 |
 | `categories` | 自定义分类与图标注册表 |
+
+APK 形态使用插件自己的 SQLite，数据库不暴露给宿主；宿主备份通过 provider 的 `exportBackup` / `importBackup` 读写 `PluginDataSnapshot`。内置数据在首次发现 APK 时自动迁移，旧数据库保留作为回滚保险。
 
 插件不声明网络能力，也不读取插件外部数据。
 
@@ -62,7 +64,14 @@ lifehub-plugin-ledger/
 ├── src/main/assets/plugins/com.lifehub.plugin.ledger/
 │   ├── manifest.json
 │   └── pages/*.json
-└── src/test/java/com/lifehub/app/plugins/LedgerPluginTest.kt
+├── src/test/java/com/lifehub/app/plugins/LedgerPluginTest.kt
+└── apk/
+    ├── build.gradle.kts
+    └── src/main/
+        ├── AndroidManifest.xml
+        └── java/com/lifehub/plugin/ledger/apk/
+            ├── LedgerApkProvider.kt
+            └── LedgerApkStorage.kt
 ```
 
 ## 构建与测试
@@ -80,10 +89,18 @@ cd ..\lifehub
 
 # 构建包含本插件的调试 APK
 .\gradlew.bat :app:assembleDebug
+
+# 构建独立的记账插件 APK（headless provider）
+.\gradlew.bat :plugins:ledger-apk:assembleDebug
 ```
 
 ## 接入方式
 
-宿主 `settings.gradle.kts` 将本仓库映射为 `:plugins:ledger`，`FirstPartyPluginHandlers` 注册 `LedgerPlugin`。插件随宿主 APK 内置分发，用户在插件详情页确认 `ui.action` 与 `storage.private` 能力后启用。
+宿主 `settings.gradle.kts` 将本仓库映射为 `:plugins:ledger` 与 `:plugins:ledger-apk`。阶段 1 保留内置 `LedgerPlugin`，同时在插件市场提供独立 APK：
+
+- 未安装 APK 时使用内置实现，数据保存在宿主 `PluginStorage`。
+- 安装 APK 后，宿主把内置四个集合导出为 `PluginDataSnapshot`，通过 provider 导入插件数据库；导入成功后才切换到 APK 入口。
+- 卸载 APK 或迁移失败（例如数据超过 512 KiB Binder 上限）时自动回退内置实现，旧数据库不被删除。
+- 阶段 2 将移除宿主内置注册，默认通过插件市场安装。
 
 开发文档：[插件开发指南](https://github.com/moke2585/lifehub/blob/main/docs/plugin-development.md)
