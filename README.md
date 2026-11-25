@@ -42,7 +42,7 @@
 
 ## 数据
 
-内置形态通过宿主 `PluginStorage` 保存，随宿主备份一起导出（备份 v1，口令加密）：
+旧版内置形态的数据保存在宿主 `PluginStorage`，首次安装 APK 时按以下四个集合迁移：
 
 | 集合 | 内容 |
 |---|---|
@@ -51,7 +51,7 @@
 | `budget` | 月度预算、结转模式与分类预算 |
 | `categories` | 自定义分类与图标注册表 |
 
-APK 形态使用插件自己的 SQLite，数据库不暴露给宿主；宿主备份通过 provider 的 `exportBackup` / `importBackup` 读写 `PluginDataSnapshot`。内置数据在首次发现 APK 时自动迁移，旧数据库保留作为回滚保险。
+当前 APK 形态使用插件自己的 SQLite，数据库不暴露给宿主；宿主备份通过 provider 的 `exportBackup` / `importBackup` 读写 `PluginDataSnapshot`。迁移成功后旧数据库保留作为回滚保险。
 
 插件不声明网络能力，也不读取插件外部数据。
 
@@ -96,11 +96,11 @@ cd ..\lifehub
 
 ## 接入方式
 
-宿主 `settings.gradle.kts` 将本仓库映射为 `:plugins:ledger` 与 `:plugins:ledger-apk`。阶段 1 保留内置 `LedgerPlugin`，同时在插件市场提供独立 APK：
+宿主 `settings.gradle.kts` 将本仓库映射为 `:plugins:ledger` 与 `:plugins:ledger-apk`。记账已以独立 APK 插件分发，宿主不再内置：
 
-- 未安装 APK 时使用内置实现，数据保存在宿主 `PluginStorage`。
-- 安装 APK 后，宿主把内置四个集合导出为 `PluginDataSnapshot`，通过 provider 导入插件数据库；导入成功后才切换到 APK 入口。
-- 卸载 APK 或迁移失败（例如数据超过 512 KiB Binder 上限）时自动回退内置实现，旧数据库不被删除。
-- 阶段 2 将移除宿主内置注册，默认通过插件市场安装。
+- 未安装 APK 时，插件页显示“记账 未安装”，从插件市场安装。
+- 首次发现 APK 后，宿主把旧内置四个集合导出为 `PluginDataSnapshot`，通过 provider 导入插件数据库。
+- 迁移失败（例如数据超过 512 KiB Binder 上限）时保留旧库，不写入空数据。
+- 卸载 APK 会删除插件数据库；旧库保留，重新安装后再次迁移。
 
 开发文档：[插件开发指南](https://github.com/moke2585/lifehub/blob/main/docs/plugin-development.md)
